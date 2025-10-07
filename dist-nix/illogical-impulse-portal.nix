@@ -5,7 +5,11 @@
 with lib;
 
 {
-  options.illogical-impulse.portal.enable = mkEnableOption "Illogical Impulse XDG Desktop Portal dependencies";
+  options.illogical-impulse.portal.enable = mkOption {
+    type = types.bool;
+    default = true;
+    description = "Enable Illogical Impulse XDG Desktop Portal dependencies";
+  };
 
   config = mkIf config.illogical-impulse.portal.enable {
     home.packages = [

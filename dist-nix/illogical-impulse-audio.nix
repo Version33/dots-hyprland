@@ -5,7 +5,11 @@
 with lib;
 
 {
-  options.illogical-impulse.audio.enable = mkEnableOption "Illogical Impulse audio dependencies";
+  options.illogical-impulse.audio.enable = mkOption {
+    type = types.bool;
+    default = true;
+    description = "Enable Illogical Impulse audio dependencies";
+  };
 
   config = mkIf config.illogical-impulse.audio.enable {
     home.packages = [

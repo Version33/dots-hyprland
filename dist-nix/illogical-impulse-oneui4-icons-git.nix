@@ -6,7 +6,11 @@
 with lib;
 
 {
-  options.illogical-impulse.oneui4-icons.enable = mkEnableOption "Illogical Impulse OneUI4 icons (optional)";
+  options.illogical-impulse.oneui4-icons.enable = mkOption {
+    type = types.bool;
+    default = false;
+    description = "Enable Illogical Impulse OneUI4 icons (optional)";
+  };
 
   config = mkIf config.illogical-impulse.oneui4-icons.enable {
     home.packages = [

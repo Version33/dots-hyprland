@@ -5,7 +5,11 @@
 with lib;
 
 {
-  options.illogical-impulse.widgets.enable = mkEnableOption "Illogical Impulse widget dependencies";
+  options.illogical-impulse.widgets.enable = mkOption {
+    type = types.bool;
+    default = true;
+    description = "Enable Illogical Impulse widget dependencies";
+  };
 
   config = mkIf config.illogical-impulse.widgets.enable {
     home.packages = [

@@ -5,7 +5,11 @@
 with lib;
 
 {
-  options.illogical-impulse.bibata-cursor.enable = mkEnableOption "Illogical Impulse Bibata cursor theme";
+  options.illogical-impulse.bibata-cursor.enable = mkOption {
+    type = types.bool;
+    default = true;
+    description = "Enable Illogical Impulse Bibata cursor theme";
+  };
 
   config = mkIf config.illogical-impulse.bibata-cursor.enable {
     home.packages = [

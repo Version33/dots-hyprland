@@ -9,7 +9,11 @@ let
 in
 {
   options.illogical-impulse.hyprland = {
-    enable = mkEnableOption "Illogical Impulse Hyprland dependencies";
+    enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Enable Illogical Impulse Hyprland dependencies";
+    };
 
     # Package installation
     package = mkOption {

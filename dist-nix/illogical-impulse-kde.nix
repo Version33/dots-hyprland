@@ -5,7 +5,11 @@
 with lib;
 
 {
-  options.illogical-impulse.kde.enable = mkEnableOption "Illogical Impulse KDE dependencies";
+  options.illogical-impulse.kde.enable = mkOption {
+    type = types.bool;
+    default = false;
+    description = "Enable Illogical Impulse KDE dependencies (optional)";
+  };
 
   config = mkIf config.illogical-impulse.kde.enable {
     home.packages = [

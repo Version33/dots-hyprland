@@ -5,7 +5,11 @@
 with lib;
 
 {
-  options.illogical-impulse.basic.enable = mkEnableOption "Illogical Impulse basic dependencies";
+  options.illogical-impulse.basic.enable = mkOption {
+    type = types.bool;
+    default = true;
+    description = "Enable Illogical Impulse basic dependencies";
+  };
 
   config = mkIf config.illogical-impulse.basic.enable {
     home.packages = [

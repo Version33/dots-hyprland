@@ -5,7 +5,11 @@
 with lib;
 
 {
-  options.illogical-impulse.toolkit.enable = mkEnableOption "Illogical Impulse GTK/Qt toolkit dependencies";
+  options.illogical-impulse.toolkit.enable = mkOption {
+    type = types.bool;
+    default = true;
+    description = "Enable Illogical Impulse GTK/Qt toolkit dependencies";
+  };
 
   config = mkIf config.illogical-impulse.toolkit.enable {
     home.packages = [

@@ -9,7 +9,11 @@ let
 in
 {
   options.illogical-impulse.fonts-themes = {
-    enable = mkEnableOption "Illogical Impulse fonts and theming dependencies";
+    enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Enable Illogical Impulse fonts and theming dependencies";
+    };
 
     # Theme options
     gtkTheme = mkOption {

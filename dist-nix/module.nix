@@ -24,7 +24,11 @@ in
   ];
 
   options.illogical-impulse = {
-    enable = mkEnableOption "Illogical Impulse dotfiles configuration";
+    enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Enable Illogical Impulse dotfiles configuration";
+    };
 
     # Fish shell configuration
     fish = {
