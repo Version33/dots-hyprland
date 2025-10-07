@@ -6,6 +6,32 @@ This directory contains Nix flake configuration for installing the Illogical Imp
 
 ## Quick Start
 
+### Option 1: Automated Installation (Recommended)
+
+If you're starting fresh or want a quick setup:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/end-4/dots-hyprland.git
+   cd dots-hyprland/dist-nix
+   ```
+
+2. **Run the installation script**:
+   ```bash
+   ./install-deps.sh
+   ```
+
+   The script will:
+   - Install Nix if not present
+   - Enable flakes
+   - Install home-manager
+   - Generate a home-manager configuration with sensible defaults
+   - Apply the configuration
+
+### Option 2: Manual Integration
+
+If you already have home-manager configured or prefer manual setup:
+
 ### Prerequisites
 
 - Nix package manager installed (see [Installation](#installing-nix) if you don't have it)
