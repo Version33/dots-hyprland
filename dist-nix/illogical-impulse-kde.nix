@@ -5,17 +5,21 @@
 with lib;
 
 {
-  options.illogical-impulse.kde.enable = mkEnableOption "Illogical Impulse KDE dependencies";
+  options.illogical-impulse.kde.enable = mkOption {
+    type = types.bool;
+    default = false;
+    description = "Enable Illogical Impulse KDE dependencies (optional)";
+  };
 
   config = mkIf config.illogical-impulse.kde.enable {
-    home.packages = [
-      pkgs.bluedevil
+    home.packages = with pkgs.kdePackages; [
+      bluedevil
+      plasma-nm
+      polkit-kde-agent-1
+      dolphin
+      systemsettings
       pkgs.gnome-keyring
       pkgs.networkmanager
-      pkgs.plasma-nm
-      pkgs.polkit-kde-agent
-      pkgs.dolphin
-      pkgs.systemsettings
     ];
   };
 }

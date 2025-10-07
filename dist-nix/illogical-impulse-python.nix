@@ -5,7 +5,11 @@
 with lib;
 
 {
-  options.illogical-impulse.python.enable = mkEnableOption "Illogical Impulse Python dependencies";
+  options.illogical-impulse.python.enable = mkOption {
+    type = types.bool;
+    default = false;
+    description = "Enable Illogical Impulse Python dependencies (optional)";
+  };
 
   config = mkIf config.illogical-impulse.python.enable {
     home.packages = [

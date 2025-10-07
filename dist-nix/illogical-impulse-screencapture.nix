@@ -5,7 +5,11 @@
 with lib;
 
 {
-  options.illogical-impulse.screencapture.enable = mkEnableOption "Illogical Impulse screenshot and recording dependencies";
+  options.illogical-impulse.screencapture.enable = mkOption {
+    type = types.bool;
+    default = true;
+    description = "Enable Illogical Impulse screenshot and recording dependencies";
+  };
 
   config = mkIf config.illogical-impulse.screencapture.enable {
     home.packages = [

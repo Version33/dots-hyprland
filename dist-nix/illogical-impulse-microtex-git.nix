@@ -6,7 +6,11 @@
 with lib;
 
 {
-  options.illogical-impulse.microtex.enable = mkEnableOption "Illogical Impulse MicroTeX dependencies";
+  options.illogical-impulse.microtex.enable = mkOption {
+    type = types.bool;
+    default = false;
+    description = "Enable Illogical Impulse MicroTeX dependencies (optional)";
+  };
 
   config = mkIf config.illogical-impulse.microtex.enable {
     home.packages = [
