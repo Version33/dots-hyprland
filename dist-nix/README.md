@@ -4,6 +4,8 @@ This directory contains Nix flake configuration for installing the Illogical Imp
 
 > **Note**: This is designed for use with home-manager on any distribution, not specifically for NixOS. If you're using NixOS, you can still use this flake as a home-manager module.
 
+📄 **[Quick Reference Guide](QUICKREF.md)** - Handy cheat sheet for common tasks
+
 ## Quick Start
 
 ### Option 1: Automated Installation (Recommended)
