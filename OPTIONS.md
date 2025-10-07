@@ -2,8 +2,30 @@
 
 This document provides a comprehensive reference for all configuration options available in the Illogical Impulse dotfiles flake.
 
+## Installation
+
+### For Nix/home-manager Users
+
+See the [dist-nix/README.md](dist-nix/README.md) for detailed installation instructions using Nix and home-manager.
+
+**Quick start:**
+```bash
+# Run the installation script
+cd dist-nix && ./install-deps.sh
+```
+
+Or manually add the flake to your home-manager configuration:
+```nix
+inputs.illogical-impulse.url = "github:end-4/dots-hyprland?dir=dist-nix";
+```
+
+### For Arch Linux Users
+
+See the [Wiki](https://end-4.github.io/dots-hyprland-wiki/en/ii-qs/01setup/) for Arch Linux installation instructions.
+
 ## Table of Contents
 
+- [Installation](#installation)
 - [Master Options](#master-options)
 - [Component Modules](#component-modules)
 - [Hyprland Configuration](#hyprland-configuration)
