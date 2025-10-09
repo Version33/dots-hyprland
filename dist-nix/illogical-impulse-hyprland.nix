@@ -50,6 +50,15 @@ in
       default = "";
       description = "Extra configuration to append to hyprland.conf";
     };
+
+    # Configuration file deployment
+    configFiles = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Deploy Hyprland configuration files from .config directory";
+      };
+    };
   };
 
   config = mkIf cfg.enable {
@@ -68,5 +77,47 @@ in
       pkgs.xdg-desktop-portal-hyprland
       pkgs.wl-clipboard
     ];
+
+    # Deploy Hyprland configuration files
+    xdg.configFile = mkIf cfg.configFiles.enable {
+      "hypr/hyprland.conf".source = ../.config/hypr/hyprland.conf;
+      "hypr/hypridle.conf".source = ../.config/hypr/hypridle.conf;
+      "hypr/hyprlock.conf".source = ../.config/hypr/hyprlock.conf;
+
+      # Hyprland subdirectory configs
+      "hypr/hyprland/colors.conf".source = ../.config/hypr/hyprland/colors.conf;
+      "hypr/hyprland/env.conf".source = ../.config/hypr/hyprland/env.conf;
+      "hypr/hyprland/execs.conf".source = ../.config/hypr/hyprland/execs.conf;
+      "hypr/hyprland/general.conf".source = ../.config/hypr/hyprland/general.conf;
+      "hypr/hyprland/keybinds.conf".source = ../.config/hypr/hyprland/keybinds.conf;
+      "hypr/hyprland/rules.conf".source = ../.config/hypr/hyprland/rules.conf;
+
+      # Custom configs (empty by default for user customization)
+      "hypr/custom/env.conf".text = cfg.extraConfig;
+      "hypr/custom/execs.conf".text = "";
+      "hypr/custom/general.conf".text = "";
+      "hypr/custom/keybinds.conf".text = "";
+      "hypr/custom/rules.conf".text = "";
+
+      # Monitor configuration
+      "hypr/monitors.conf".text = ''
+        # Monitor configuration
+        ${concatMapStrings (monitor: "monitor=${monitor}\n") cfg.monitors}
+      '';
+
+      # Workspace configuration
+      "hypr/workspaces.conf".text = ''
+        # Workspace configuration
+        ${concatMapStrings (workspace: "workspace=${workspace}\n") cfg.workspaces}
+      '';
+    };
+
+    # Enable Hyprland through home-manager if requested
+    wayland.windowManager.hyprland = {
+      enable = true;
+      xwayland.enable = true;
+      systemd.enable = true;
+      package = cfg.package;
+    };
   };
 }

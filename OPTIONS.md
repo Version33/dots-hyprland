@@ -47,6 +47,7 @@ All component modules follow the pattern: `illogical-impulse.<component>.enable`
   - `gtkTheme` (string, default: "adw-gtk3-dark"): GTK theme name
   - `iconTheme` (string, default: "breeze-dark"): Icon theme name
   - `cursorTheme` (string, default: "Bibata-Modern-Classic"): Cursor theme name
+  - `configFiles.enable` (bool, default: true): Deploy fontconfig files
 
 #### `illogical-impulse.hyprland.enable`
 - **Type**: `bool`
@@ -54,12 +55,15 @@ All component modules follow the pattern: `illogical-impulse.<component>.enable`
 - **Packages**: hypridle, hyprcursor, hyprland, hyprland-qtutils, hyprlang, hyprlock, hyprpicker, hyprsunset, hyprutils, hyprwayland-scanner, xdg-desktop-portal-hyprland, wl-clipboard
 - **Description**: Hyprland compositor and related tools
 - **Sub-options**: See [Hyprland Configuration](#hyprland-configuration)
+  - `configFiles.enable` (bool, default: true): Deploy Hyprland configuration files
 
 #### `illogical-impulse.portal.enable`
 - **Type**: `bool`
 - **Default**: `false`
 - **Packages**: xdg-desktop-portal, xdg-desktop-portal-kde, xdg-desktop-portal-gtk, xdg-desktop-portal-hyprland
 - **Description**: XDG Desktop Portal implementations
+- **Sub-options**:
+  - `configFiles.enable` (bool, default: true): Deploy XDG portal configuration files
 
 #### `illogical-impulse.screencapture.enable`
 - **Type**: `bool`
@@ -72,12 +76,16 @@ All component modules follow the pattern: `illogical-impulse.<component>.enable`
 - **Default**: `false`
 - **Packages**: kdialog, Qt6 packages (qt5compat, qtbase, qtdeclarative, qtimageformats, qtmultimedia, etc.), syntax-highlighting, upower, wtype, ydotool
 - **Description**: GTK/Qt toolkit dependencies
+- **Sub-options**:
+  - `configFiles.enable` (bool, default: true): Deploy Qt/toolkit configuration files
 
 #### `illogical-impulse.widgets.enable`
 - **Type**: `bool`
 - **Default**: `false`
 - **Packages**: fuzzel, glib, hypridle, hyprutils, hyprlock, hyprpicker, networkmanagerapplet, translate-shell, wlogout
 - **Description**: Widget system dependencies
+- **Sub-options**:
+  - `configFiles.enable` (bool, default: true): Deploy widget configuration files
 
 ### Optional Components
 
@@ -98,6 +106,8 @@ All component modules follow the pattern: `illogical-impulse.<component>.enable`
 - **Default**: `false`
 - **Packages**: bluedevil, gnome-keyring, networkmanager, plasma-nm, polkit-kde-agent, dolphin, systemsettings
 - **Description**: KDE and Plasma-related packages
+- **Sub-options**:
+  - `configFiles.enable` (bool, default: true): Deploy KDE configuration files
 
 #### `illogical-impulse.microtex.enable`
 - **Type**: `bool`
@@ -172,6 +182,11 @@ All component modules follow the pattern: `illogical-impulse.<component>.enable`
     }
   '';
   ```
+
+### `illogical-impulse.hyprland.configFiles.enable`
+- **Type**: `bool`
+- **Default**: `true`
+- **Description**: Deploy Hyprland configuration files from `.config` directory
 
 ## Fish Shell Configuration
 
@@ -251,7 +266,7 @@ Theme options are provided by the `fonts-themes` module:
 
 When enabled, this option deploys the following configurations:
 
-- **Hyprland** (when `hyprland.enable = true`):
+- **Hyprland** (when `hyprland.enable = true` and `hyprland.configFiles.enable = true`):
   - `hypr/hyprland.conf`
   - `hypr/hypridle.conf`
   - `hypr/hyprlock.conf`
@@ -272,24 +287,25 @@ When enabled, this option deploys the following configurations:
 - **Starship** (when `fish.enableStarship = true`):
   - `starship.toml`
 
-- **Widgets** (when `widgets.enable = true`):
+- **Widgets** (when `widgets.enable = true` and `widgets.configFiles.enable = true`):
   - `fuzzel/` directory
   - `wlogout/` directory
+  - `quickshell/` directory
 
-- **Fonts & Themes** (when `fonts-themes.enable = true`):
+- **Fonts & Themes** (when `fonts-themes.enable = true` and `fonts-themes.configFiles.enable = true`):
   - `fontconfig/` directory
 
-- **Toolkit** (when `toolkit.enable = true`):
+- **Toolkit** (when `toolkit.enable = true` and `toolkit.configFiles.enable = true`):
   - `qt5ct/` directory
   - `qt6ct/` directory
   - `Kvantum/` directory
 
-- **KDE** (when `kde.enable = true`):
+- **KDE** (when `kde.enable = true` and `kde.configFiles.enable = true`):
   - `kdeglobals`
   - `dolphinrc`
   - `konsolerc`
 
-- **Portal** (when `portal.enable = true`):
+- **Portal** (when `portal.enable = true` and `portal.configFiles.enable = true`):
   - `xdg-desktop-portal/` directory
 
 - **General**:

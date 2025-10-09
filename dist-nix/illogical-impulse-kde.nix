@@ -4,14 +4,27 @@
 
 with lib;
 
+let
+  cfg = config.illogical-impulse.kde;
+in
 {
-  options.illogical-impulse.kde.enable = mkOption {
-    type = types.bool;
-    default = false;
-    description = "Enable Illogical Impulse KDE dependencies (optional)";
+  options.illogical-impulse.kde = {
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Enable Illogical Impulse KDE dependencies (optional)";
+    };
+
+    configFiles = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Deploy KDE configuration files from .config directory";
+      };
+    };
   };
 
-  config = mkIf config.illogical-impulse.kde.enable {
+  config = mkIf cfg.enable {
     home.packages = with pkgs.kdePackages; [
       bluedevil
       plasma-nm
@@ -21,5 +34,12 @@ with lib;
       pkgs.gnome-keyring
       pkgs.networkmanager
     ];
+
+    # Deploy KDE configuration files
+    xdg.configFile = mkIf cfg.configFiles.enable {
+      "kdeglobals".source = ../.config/kdeglobals;
+      "dolphinrc".source = ../.config/dolphinrc;
+      "konsolerc".source = ../.config/konsolerc;
+    };
   };
 }

@@ -92,41 +92,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    # Deploy Hyprland configuration files
     xdg.configFile = mkMerge [
-      (mkIf (config.illogical-impulse.hyprland.enable && cfg.configFiles.enable) {
-        "hypr/hyprland.conf".source = ../.config/hypr/hyprland.conf;
-        "hypr/hypridle.conf".source = ../.config/hypr/hypridle.conf;
-        "hypr/hyprlock.conf".source = ../.config/hypr/hyprlock.conf;
-
-        # Hyprland subdirectory configs
-        "hypr/hyprland/colors.conf".source = ../.config/hypr/hyprland/colors.conf;
-        "hypr/hyprland/env.conf".source = ../.config/hypr/hyprland/env.conf;
-        "hypr/hyprland/execs.conf".source = ../.config/hypr/hyprland/execs.conf;
-        "hypr/hyprland/general.conf".source = ../.config/hypr/hyprland/general.conf;
-        "hypr/hyprland/keybinds.conf".source = ../.config/hypr/hyprland/keybinds.conf;
-        "hypr/hyprland/rules.conf".source = ../.config/hypr/hyprland/rules.conf;
-
-        # Custom configs (empty by default for user customization)
-        "hypr/custom/env.conf".text = config.illogical-impulse.hyprland.extraConfig;
-        "hypr/custom/execs.conf".text = "";
-        "hypr/custom/general.conf".text = "";
-        "hypr/custom/keybinds.conf".text = "";
-        "hypr/custom/rules.conf".text = "";
-
-        # Monitor configuration
-        "hypr/monitors.conf".text = ''
-          # Monitor configuration
-          ${concatMapStrings (monitor: "monitor=${monitor}\n") config.illogical-impulse.hyprland.monitors}
-        '';
-
-        # Workspace configuration
-        "hypr/workspaces.conf".text = ''
-          # Workspace configuration
-          ${concatMapStrings (workspace: "workspace=${workspace}\n") config.illogical-impulse.hyprland.workspaces}
-        '';
-      })
-
       # Deploy Fish configuration
       (mkIf (cfg.fish.enable && cfg.configFiles.enable) {
         "fish/config.fish".text = ''
@@ -180,43 +146,9 @@ in
         "starship.toml".source = ../.config/starship.toml;
       })
 
-      # Deploy fuzzel configuration
-      (mkIf (config.illogical-impulse.widgets.enable && cfg.configFiles.enable) {
-        "fuzzel".source = ../.config/fuzzel;
-      })
-
-      # Deploy wlogout configuration
-      (mkIf (config.illogical-impulse.widgets.enable && cfg.configFiles.enable) {
-        "wlogout".source = ../.config/wlogout;
-      })
-
-      # Deploy Quickshell configuration
-      (mkIf (config.illogical-impulse.widgets.enable && cfg.configFiles.enable) {
-        "quickshell".source = ../.config/quickshell;
-      })
-
       # Deploy foot terminal configuration
       (mkIf cfg.configFiles.enable {
         "foot".source = ../.config/foot;
-      })
-
-      # Deploy fontconfig
-      (mkIf (config.illogical-impulse.fonts-themes.enable && cfg.configFiles.enable) {
-        "fontconfig".source = ../.config/fontconfig;
-      })
-
-      # Deploy Qt configuration
-      (mkIf (config.illogical-impulse.toolkit.enable && cfg.configFiles.enable) {
-        "qt5ct".source = ../.config/qt5ct;
-        "qt6ct".source = ../.config/qt6ct;
-        "Kvantum".source = ../.config/Kvantum;
-      })
-
-      # Deploy KDE configuration files
-      (mkIf (config.illogical-impulse.kde.enable && cfg.configFiles.enable) {
-        "kdeglobals".source = ../.config/kdeglobals;
-        "dolphinrc".source = ../.config/dolphinrc;
-        "konsolerc".source = ../.config/konsolerc;
       })
 
       # Deploy Chromium/Chrome flags
@@ -225,20 +157,7 @@ in
         "code-flags.conf".source = ../.config/code-flags.conf;
         "thorium-flags.conf".source = ../.config/thorium-flags.conf;
       })
-
-      # Deploy XDG portal configuration
-      (mkIf (config.illogical-impulse.portal.enable && cfg.configFiles.enable) {
-        "xdg-desktop-portal".source = ../.config/xdg-desktop-portal;
-      })
     ];
-
-    # Enable Hyprland through home-manager if requested
-    wayland.windowManager.hyprland = mkIf config.illogical-impulse.hyprland.enable {
-      enable = true;
-      xwayland.enable = true;
-      systemd.enable = true;
-      package = config.illogical-impulse.hyprland.package;
-    };
 
     # Enable Fish shell through home-manager
     programs.fish = mkIf cfg.fish.enable {
