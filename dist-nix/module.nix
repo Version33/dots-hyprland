@@ -146,43 +146,9 @@ in
         "starship.toml".source = ../.config/starship.toml;
       })
 
-      # Deploy fuzzel configuration
-      (mkIf (config.illogical-impulse.widgets.enable && cfg.configFiles.enable) {
-        "fuzzel".source = ../.config/fuzzel;
-      })
-
-      # Deploy wlogout configuration
-      (mkIf (config.illogical-impulse.widgets.enable && cfg.configFiles.enable) {
-        "wlogout".source = ../.config/wlogout;
-      })
-
-      # Deploy Quickshell configuration
-      (mkIf (config.illogical-impulse.widgets.enable && cfg.configFiles.enable) {
-        "quickshell".source = ../.config/quickshell;
-      })
-
       # Deploy foot terminal configuration
       (mkIf cfg.configFiles.enable {
         "foot".source = ../.config/foot;
-      })
-
-      # Deploy fontconfig
-      (mkIf (config.illogical-impulse.fonts-themes.enable && cfg.configFiles.enable) {
-        "fontconfig".source = ../.config/fontconfig;
-      })
-
-      # Deploy Qt configuration
-      (mkIf (config.illogical-impulse.toolkit.enable && cfg.configFiles.enable) {
-        "qt5ct".source = ../.config/qt5ct;
-        "qt6ct".source = ../.config/qt6ct;
-        "Kvantum".source = ../.config/Kvantum;
-      })
-
-      # Deploy KDE configuration files
-      (mkIf (config.illogical-impulse.kde.enable && cfg.configFiles.enable) {
-        "kdeglobals".source = ../.config/kdeglobals;
-        "dolphinrc".source = ../.config/dolphinrc;
-        "konsolerc".source = ../.config/konsolerc;
       })
 
       # Deploy Chromium/Chrome flags
@@ -190,11 +156,6 @@ in
         "chrome-flags.conf".source = ../.config/chrome-flags.conf;
         "code-flags.conf".source = ../.config/code-flags.conf;
         "thorium-flags.conf".source = ../.config/thorium-flags.conf;
-      })
-
-      # Deploy XDG portal configuration
-      (mkIf (config.illogical-impulse.portal.enable && cfg.configFiles.enable) {
-        "xdg-desktop-portal".source = ../.config/xdg-desktop-portal;
       })
     ];
 

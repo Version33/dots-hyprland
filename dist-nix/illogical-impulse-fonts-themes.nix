@@ -33,6 +33,14 @@ in
       default = "Bibata-Modern-Classic";
       description = "Cursor theme name";
     };
+
+    configFiles = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Deploy fontconfig from .config directory";
+      };
+    };
   };
 
   config = mkIf cfg.enable {
@@ -57,5 +65,10 @@ in
       # ttf-rubik-vf - Not available in nixpkgs
       pkgs.twemoji-color-font
     ];
+
+    # Deploy fontconfig
+    xdg.configFile = mkIf cfg.configFiles.enable {
+      "fontconfig".source = ../.config/fontconfig;
+    };
   };
 }

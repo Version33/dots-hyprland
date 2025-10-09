@@ -4,14 +4,27 @@
 
 with lib;
 
+let
+  cfg = config.illogical-impulse.widgets;
+in
 {
-  options.illogical-impulse.widgets.enable = mkOption {
-    type = types.bool;
-    default = true;
-    description = "Enable Illogical Impulse widget dependencies";
+  options.illogical-impulse.widgets = {
+    enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Enable Illogical Impulse widget dependencies";
+    };
+
+    configFiles = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Deploy widget configuration files from .config directory";
+      };
+    };
   };
 
-  config = mkIf config.illogical-impulse.widgets.enable {
+  config = mkIf cfg.enable {
     home.packages = [
       pkgs.fuzzel
       pkgs.glib
@@ -24,5 +37,12 @@ with lib;
       pkgs.translate-shell
       pkgs.wlogout
     ];
+
+    # Deploy widget configuration files
+    xdg.configFile = mkIf cfg.configFiles.enable {
+      "fuzzel".source = ../.config/fuzzel;
+      "wlogout".source = ../.config/wlogout;
+      "quickshell".source = ../.config/quickshell;
+    };
   };
 }

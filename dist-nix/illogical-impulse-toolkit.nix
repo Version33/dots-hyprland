@@ -4,14 +4,27 @@
 
 with lib;
 
+let
+  cfg = config.illogical-impulse.toolkit;
+in
 {
-  options.illogical-impulse.toolkit.enable = mkOption {
-    type = types.bool;
-    default = true;
-    description = "Enable Illogical Impulse GTK/Qt toolkit dependencies";
+  options.illogical-impulse.toolkit = {
+    enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Enable Illogical Impulse GTK/Qt toolkit dependencies";
+    };
+
+    configFiles = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Deploy Qt/toolkit configuration files from .config directory";
+      };
+    };
   };
 
-  config = mkIf config.illogical-impulse.toolkit.enable {
+  config = mkIf cfg.enable {
     home.packages = [
       pkgs.kdePackages.kdialog
       pkgs.qt6.qt5compat
@@ -33,5 +46,12 @@ with lib;
       pkgs.wtype
       pkgs.ydotool
     ];
+
+    # Deploy Qt configuration files
+    xdg.configFile = mkIf cfg.configFiles.enable {
+      "qt5ct".source = ../.config/qt5ct;
+      "qt6ct".source = ../.config/qt6ct;
+      "Kvantum".source = ../.config/Kvantum;
+    };
   };
 }
