@@ -173,6 +173,11 @@ All component modules follow the pattern: `illogical-impulse.<component>.enable`
   '';
   ```
 
+### `illogical-impulse.hyprland.configFiles.enable`
+- **Type**: `bool`
+- **Default**: `true`
+- **Description**: Deploy Hyprland configuration files from `.config` directory
+
 ## Fish Shell Configuration
 
 ### `illogical-impulse.fish.enable`
@@ -251,7 +256,7 @@ Theme options are provided by the `fonts-themes` module:
 
 When enabled, this option deploys the following configurations:
 
-- **Hyprland** (when `hyprland.enable = true`):
+- **Hyprland** (when `hyprland.enable = true` and `hyprland.configFiles.enable = true`):
   - `hypr/hyprland.conf`
   - `hypr/hypridle.conf`
   - `hypr/hyprlock.conf`
